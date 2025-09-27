@@ -1,4 +1,4 @@
-# DROPFISH TAGS MANAGER // HOLOGRAPHIC UI
+[# DROPFISH TAGS MANAGER // HOLOGRAPHIC UI
 
 Este projeto contém o Gerenciador de Tags do DJ DropFish, uma ferramenta web simples e eficiente para gerar e copiar hashtags otimizadas e específicas para a cena psytrance.
 
@@ -27,3 +27,4 @@ Após alguns minutos, seu gerenciador estará ativo no link: `https://nom4dlive.
 - **Cópia Instantânea:** Copie grupos inteiros de tags com um clique.
 - **Campos Dinâmicos:** Personalize tags de localização e detalhes do evento (@Instagram e #Evento) em tempo real.
 - **Tags Otimizadas:** Grupos pré-definidos para **RAVE/FESTIVAL**, **PVT**, **PROGRESSIVE**, **FULL ON**, etc.
+](https://nom4dlive.github.io/dropfish-tag-manager/tags_manager.html)
