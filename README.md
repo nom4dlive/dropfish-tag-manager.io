@@ -1,30 +1,312 @@
-[# DROPFISH TAGS MANAGER // HOLOGRAPHIC UI
 
-Este projeto contém o Gerenciador de Tags do DJ DropFish, uma ferramenta web simples e eficiente para gerar e copiar hashtags otimizadas e específicas para a cena psytrance.
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tags DropFish (Holográfico)</title>
+    <!-- Carrega Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carrega Fonte Futurista: Russo One -->
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    
+    <!-- Configuração do Tailwind para cores personalizadas e fontes -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-bg': '#0D0D15', 
+                        'card-bg': '#1B1B2A', 
+                        'neon-blue': '#1EEAFF', 
+                        'neon-magenta': '#F01EFF', 
+                        'neon-green': '#A0FF25', 
+                        'text-light': '#EFEFEF',
+                    },
+                    fontFamily: {
+                        sans: ['Russo One', 'sans-serif'],
+                        mono: ['Russo One', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Padrão de fundo sutil (referência a elementos visuais do psy) */
+        body {
+            background-color: #0D0D15;
+            background-image: radial-gradient(#1B1B2A 1px, transparent 1px),
+                              radial-gradient(#1B1B2A 1px, #0D0D15 1px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
 
-## 🚀 Como Publicar (Usando GitHub Desktop)
+        /* Efeito de brilho neon para botões e títulos */
+        .neon-title {
+            text-shadow: 0 0 5px var(--tw-colors-neon-magenta), 0 0 15px var(--tw-colors-neon-magenta);
+            letter-spacing: 0.1em;
+        }
+        .neon-button {
+            box-shadow: 0 0 8px var(--tw-colors-neon-magenta), 0 0 15px var(--tw-colors-neon-magenta);
+            transition: all 0.2s ease-in-out;
+        }
+        .neon-button:hover {
+            box-shadow: 0 0 10px var(--tw-colors-neon-blue), 0 0 20px var(--tw-colors-neon-blue);
+        }
+        .input-glow {
+            box-shadow: 0 0 5px rgba(30, 234, 255, 0.5);
+        }
+        .card-border-glow {
+            border: 1px solid rgba(30, 234, 255, 0.2);
+            box-shadow: 0 0 10px rgba(30, 234, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="text-text-light min-h-screen font-sans p-4">
 
-1.  **Crie os Arquivos:** Execute o script Python `create_github_project.py` (você acabou de fazer isso!) para gerar os arquivos `tags_manager.html` e `README.md` na sua pasta local.
-2.  **Crie um Novo Repositório:**
-    * Abra o **GitHub Desktop**.
-    * Clique em **File** -> **New Repository...**.
-    * Dê o nome ao repositório (ex: `dropfish-tag-manager`).
-    * Aponte o **Local Path** para a pasta onde os arquivos `tags_manager.html` e `README.md` foram criados.
-3.  **Commit e Publicação:**
-    * O GitHub Desktop irá detectar os arquivos.
-    * Faça o *Commit Inicial* e clique em **Publish repository**.
-4.  **Ative o GitHub Pages:**
-    * Vá para o seu repositório online no GitHub.
-    * Clique em **Settings** -> **Pages**.
-    * Em **Build and deployment**, selecione **Deploy from a branch**.
-    * Em **Branch**, selecione `main` (ou `master`) e a pasta `/(root)`. Clique em **Save**.
+    <!-- Container Principal (Centralizado e Responsivo) -->
+    <div class="max-w-4xl mx-auto py-8">
+        <h1 class="text-5xl font-extrabold mb-4 text-center text-neon-magenta neon-title">
+            DROPFISH TAGS <span class="text-neon-blue">// HOLOGRAFIC UI</span>
+        </h1>
+        <p class="text-center text-gray-400 mb-8 font-mono">
+            Sistema de Cópia Rápida (V. 2.1)
+        </p>
 
-Após alguns minutos, seu gerenciador estará ativo no link: `https://nom4dlive.github.io/dropfish-tag-manager/tags_manager.html` (substitua `dropfish-tag-manager` pelo nome que você escolher).
+        <!-- Campos de Entrada Dinâmicos -->
+        <div class="bg-card-bg p-6 mb-8 rounded-lg shadow-2xl card-border-glow space-y-6">
+            
+            <h2 class="text-2xl font-bold text-neon-green border-b border-neon-green/30 pb-2">PARÂMETROS DINÂMICOS</h2>
 
-## ✨ Funcionalidades
+            <!-- Campo de Localização Dinâmico (Tag) -->
+            <div>
+                <label for="location-input" class="block text-lg font-bold mb-2 text-neon-blue">
+                    1. 📍 TAG DO LOCAL (Afeta PVT)
+                </label>
+                <input 
+                    type="text" 
+                    id="location-input" 
+                    placeholder="#NomeDoLocal"
+                    class="w-full p-3 rounded-md bg-[#333] border border-neon-blue/50 text-text-light focus:ring-2 focus:ring-neon-blue input-glow"
+                >
+            </div>
 
-- **Design Holográfico:** Estética futurista inspirada na cena psytrance.
-- **Cópia Instantânea:** Copie grupos inteiros de tags com um clique.
-- **Campos Dinâmicos:** Personalize tags de localização e detalhes do evento (@Instagram e #Evento) em tempo real.
-- **Tags Otimizadas:** Grupos pré-definidos para **RAVE/FESTIVAL**, **PVT**, **PROGRESSIVE**, **FULL ON**, etc.
-](https://nom4dlive.github.io/dropfish-tag-manager/tags_manager.html)
+            <!-- Campo de Evento e Instagram -->
+            <div>
+                <label for="event-input" class="block text-lg font-bold mb-2 text-neon-blue">
+                    2. 🎉 EVENTO E @INSTAGRAM (Afeta RAVE)
+                </label>
+                <input 
+                    type="text" 
+                    id="event-input" 
+                    placeholder="Ex: #NomeDoFestival @InstagramDoEvento"
+                    class="w-full p-3 rounded-md bg-[#333] border border-neon-blue/50 text-text-light focus:ring-2 focus:ring-neon-blue input-glow"
+                >
+            </div>
+        </div>
+
+        <!-- Div para o contêiner das tags -->
+        <div id="tags-container" class="space-y-6">
+            <!-- As tags serão inseridas aqui via JavaScript -->
+        </div>
+
+        <!-- Área de Feedback para mensagens -->
+        <div id="feedback-message" class="fixed bottom-4 right-4 bg-neon-green text-dark-bg p-3 rounded-lg shadow-xl hidden font-bold transition-opacity duration-300">
+            Copiado com sucesso!
+        </div>
+    </div>
+
+    <script>
+        // Dados base. O nome do artista #DropFish é fixo.
+        const tagGroupsBase = [
+            { id: 'geral', context: '1. 🌎 GERAL / UNIVERSAL', tags: '#Psytrance #Trance #MusicaEletronica #ElectronicMusic #DJ #ProdutorMusical #CenaEletronica #GoodVibes #Vibe #Freedom #Dance #Party #Nightlife #TranceFamily #Psychedelic #PsychedelicTrance #DropFish' },
+            { id: 'rave', context: '2. 🎪 RAVE / FESTIVAL GRANDE', tags: '#Rave #Festival #FestivalPsy #OpenAir #LineUp #MainStage #PalcoPrincipal #Underground #Energia #ConnectingPeople #União #Experiencia #ArteCultura #Camping #AfterParty #MusicaAoVivo #Performance #FestivalDeMusica #MundoDoTrance #EVENTO_PLACEHOLDER #INSTAGRAM_PLACEHOLDER' },
+            { id: 'pvt', context: '3. 🏠 PVT / FESTA MENOR / LOCAL', tags: '#PVT #FestaPrivada #OpenAir #LocalParty #Festinha #GaleraDoTrance #Underground #Atmosphere #VibeBoa #AmigosDoTrance #ComunidadeTrance #Warmup #AfterHour #Encontro #LocalizaçãoDoEvento' },
+            { id: 'prog', context: '4. ✨ PROGRESSIVE TRANCE', tags: '#ProgressiveTrance #ProgPsy #ProgTrance #MelodicTrance #Groove #ProgressiveBeats #FutureProg #MinimalPsy #TechTrance #LinhaDeFrente #DanceFloor #Hypnotic #Driving #Flow' },
+            { id: 'fullon', context: '5. 🚀 FULL ON / HIGH BPM', tags: '#FullOn #HighBPM #EnergeticTrance #MorningPsy #NightFullOn #IsraelTrance #HighEnergy #Pulsante #FastTrance #DanceFullOn #GrooveEnergetico #PeakTime #MainFloor #KillerTrack #Drop #Explosão' },
+            { id: 'dark', context: '6. 👽 DARK PSY / HITECH / EXPERIMENTAL', tags: '#DarkPsy #Hitech #ForestPsy #ExperimentalPsy #DarkForest #Twilight #Psycore #UndergroundPsy #Ritual #DeepTrance #IntensePsy #MindBending #Distorted #HighSpeed #MentalTrance #Obscure' },
+            { id: 'release', context: '7. 💿 LANÇAMENTO / NOVA MÚSICA / SET', tags: '#NovoLançamento #NewMusic #Release #TrackNova #Single #EP #Album #SetNovo #LiveSet #Mix #Podcast #OuçaAgora #AvailableNow #Streaming #MusicProducer #OriginalMix #Remix #Exclusivo #SigaNoSpotify #OuçaNoSoundcloud #AcompanheNoYouTube #BaixeNoBeatport' },
+            { id: 'cta', context: '8. 💬 ENGAJAMENTO / CHAMADA PARA AÇÃO', tags: '#ComenteAqui #MarqueOsAmigos #Compartilhe #SaveTheDate #Ingressos #LinkNaBio #VoteAqui #PerguntaDoDia #QualASuaVibe #QuemVai #NãoPerca #AtiveAsNotificações #SigaParaMais #ApoieOArtista' },
+        ];
+
+        const container = document.getElementById('tags-container');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const locationInput = document.getElementById('location-input');
+        const eventInput = document.getElementById('event-input');
+
+        // Listener para atualizar as tags assim que o usuário digita em qualquer campo
+        locationInput.addEventListener('input', renderTags);
+        eventInput.addEventListener('input', renderTags);
+        
+        /**
+         * Retorna os grupos de tags, substituindo todos os placeholders dinâmicos.
+         */
+        function getUpdatedTagGroups() {
+            // 1. Localização (Tag) - Campo 1
+            const customLocationRaw = locationInput.value.trim();
+            const replacementLocationTag = (customLocationRaw.startsWith('#') && customLocationRaw.length > 1) 
+                                         ? customLocationRaw 
+                                         : (customLocationRaw.length > 0 ? `#${customLocationRaw}` : '');
+            
+            // 2. Evento e Instagram - Campo 2
+            const eventParts = eventInput.value.trim().split(/\s+/); // Divide por espaços
+            let eventTag = '';
+            let instagramTag = '';
+
+            for (const part of eventParts) {
+                if (part.startsWith('#') && part.length > 1) {
+                    eventTag = part;
+                } else if (part.startsWith('@') && part.length > 1) {
+                    instagramTag = part;
+                } else if (!eventTag && part.length > 0) {
+                    // Trata o primeiro item que não for @ ou # como o nome do evento para tag (ex: "XXXPerience" -> #XXXPerience)
+                    eventTag = `#${part}`;
+                }
+            }
+            
+            // Define placeholders finais ou Tags
+            const finalLocation = replacementLocationTag.length > 0 ? replacementLocationTag : '#LocalizaçãoDoEvento';
+            const finalEvent = eventTag.length > 0 ? eventTag : '#EVENTO_PLACEHOLDER';
+            const finalInstagram = instagramTag.length > 0 ? instagramTag : '#INSTAGRAM_PLACEHOLDER';
+
+
+            return tagGroupsBase.map(group => {
+                let updatedTags = group.tags;
+                
+                // Substituição da Localização (afeta o grupo PVT)
+                updatedTags = updatedTags.replace(/#LocalizaçãoDoEvento/g, finalLocation);
+                
+                // Substituição do Evento/Instagram (afeta o grupo RAVE)
+                updatedTags = updatedTags.replace(/#EVENTO_PLACEHOLDER/g, finalEvent);
+                updatedTags = updatedTags.replace(/#INSTAGRAM_PLACEHOLDER/g, finalInstagram);
+
+                // Limpa espaços duplicados ou tags placeholders que não foram preenchidas
+                updatedTags = updatedTags.replace(/#EVENTO_PLACEHOLDER/g, '').replace(/#INSTAGRAM_PLACEHOLDER/g, '').replace(/#LocalizaçãoDoEvento/g, '').replace(/\s+/g, ' ').trim();
+
+
+                return { ...group, tags: updatedTags };
+            });
+        }
+
+
+        /**
+         * Cria e exibe os cartões de tags na interface.
+         */
+        function renderTags() {
+            container.innerHTML = ''; // Limpa o container antes de renderizar
+            const tagGroups = getUpdatedTagGroups();
+
+            tagGroups.forEach(group => {
+                const card = document.createElement('div');
+                card.className = 'bg-card-bg p-5 rounded-lg shadow-xl transition duration-300 hover:shadow-neon-blue/50 card-border-glow';
+
+                // Título do Grupo
+                const title = document.createElement('h2');
+                title.className = 'text-xl font-bold mb-3 text-neon-blue';
+                title.innerHTML = group.context;
+
+                // Tags (Área de visualização)
+                const tagsDisplay = document.createElement('p');
+                tagsDisplay.className = 'text-gray-300 text-sm mb-4 whitespace-pre-wrap break-words border border-gray-700 p-3 rounded-md font-mono';
+                tagsDisplay.textContent = group.tags;
+
+                // Botão de Cópia
+                const copyButton = document.createElement('button');
+                copyButton.id = `btn-${group.id}`;
+                copyButton.textContent = '⚡ Copiar TAGS';
+                copyButton.className = 'w-full py-3 px-4 bg-neon-magenta text-dark-bg font-bold rounded-lg uppercase tracking-widest transition duration-200 hover:bg-neon-magenta/80 focus:outline-none focus:ring-4 focus:ring-neon-magenta neon-button';
+                copyButton.onclick = () => copyTags(group.tags, copyButton.id);
+
+                card.appendChild(title);
+                card.appendChild(tagsDisplay);
+                card.appendChild(copyButton);
+                container.appendChild(card);
+            });
+        }
+
+        /**
+         * Copia o texto para a área de transferência e fornece feedback.
+         * @param {string} text - O texto a ser copiado.
+         * @param {string} buttonId - O ID do botão clicado para feedback visual.
+         */
+        function copyTags(text, buttonId) {
+            const button = document.getElementById(buttonId);
+            const originalText = button.textContent;
+
+            // 1. Tenta usar a API moderna do Clipboard
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showFeedback(button, '✅ COPIADO!');
+                }).catch(err => {
+                    // Fallback se a permissão falhar
+                    fallbackCopyTextToClipboard(text, button);
+                });
+            } else {
+                // 2. Fallback para browsers mais antigos (usando document.execCommand)
+                fallbackCopyTextToClipboard(text, button);
+            }
+
+            // Função para resetar o texto do botão
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.classList.remove('bg-neon-green', 'text-dark-bg', 'bg-neon-magenta');
+                button.classList.add('bg-neon-magenta', 'text-dark-bg');
+                button.classList.remove('neon-button-success');
+                button.classList.add('neon-button');
+            }, 2000);
+        }
+
+        /**
+         * Fallback para navegadores sem a API navigator.clipboard.
+         */
+        function fallbackCopyTextToClipboard(text, button) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed"; 
+            textArea.style.opacity = 0;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showFeedback(button, '✅ COPIADO!');
+                } else {
+                    console.error('Erro ao copiar. Seu navegador não suporta cópia via script.');
+                }
+            } catch (err) {
+                console.error('Erro ao copiar: ' + err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        /**
+         * Exibe feedback visual no botão e na mensagem pop-up.
+         */
+        function showFeedback(button, message) {
+            // Feedback no botão
+            button.textContent = message;
+            button.classList.remove('bg-neon-magenta');
+            button.classList.add('bg-neon-green', 'text-dark-bg');
+            button.classList.remove('neon-button');
+            button.classList.add('neon-button-success');
+
+            // Feedback Pop-up
+            feedbackMessage.textContent = message;
+            feedbackMessage.classList.remove('hidden');
+            feedbackMessage.classList.add('opacity-100');
+
+            setTimeout(() => {
+                feedbackMessage.classList.remove('opacity-100');
+                feedbackMessage.classList.add('hidden');
+            }, 1500);
+        }
+
+        // Inicializa a aplicação
+        window.onload = renderTags;
+    </script>
+
+</body>
+</html>
